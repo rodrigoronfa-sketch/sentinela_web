@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1a2f"/>
+      <stop offset="1" stop-color="#241432"/>
+    </linearGradient>
+    <radialGradient id="g"><stop offset="0" stop-color="#f43f5e" stop-opacity="0.32"/><stop offset="1" stop-color="#f43f5e" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="640" height="480" fill="url(#bg)"/>
+  <circle cx="420" cy="220" r="230" fill="url(#g)"/>
+  <g fill="none" stroke="#38bdf8" opacity="0.25">
+    <circle cx="330" cy="240" r="150"/><circle cx="330" cy="240" r="110"/><circle cx="330" cy="240" r="70"/>
+    <path d="M330 240 L520 120"/>
+  </g>
+  <path d="M330 120 L440 310 H220 Z" fill="#ef4444" fill-opacity="0.15" stroke="#fb7185" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M330 175 V245" stroke="#fecdd3" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="330" cy="275" r="8" fill="#fecdd3"/>
+  <g stroke="#22d3ee" stroke-width="3" opacity="0.7" fill="none">
+    <path d="M40 420 H600 M80 450 H560 M120 60 H250"/>
+  </g>
+</svg>

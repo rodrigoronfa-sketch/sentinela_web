@@ -1,0 +1,42 @@
+<div class="titulo">Menú principal</div>
+<ul>
+    <li>
+        <a href="<%= ctx %>/dashboard.jsp" class="<%= "dashboard".equals(moduloActivo) ? "activo" : "" %>">
+            <img src="<%= ctx %>/imagenes/icon-dashboard.svg" alt=""> Panel de control
+        </a>
+    </li>
+    <li>
+        <a href="<%= ctx %>/asistencias.jsp" class="<%= "asistencias".equals(moduloActivo) ? "activo" : "" %>">
+            <img src="<%= ctx %>/imagenes/icon-asistencias.svg" alt=""> Asistencias
+        </a>
+    </li>
+    <li>
+        <a href="<%= ctx %>/activos.jsp" class="<%= "activos".equals(moduloActivo) ? "activo" : "" %>">
+            <img src="<%= ctx %>/imagenes/icon-activos.svg" alt=""> Activos vigilados
+        </a>
+    </li>
+    <% if (esAdmin) { %>
+    <li>
+        <a href="<%= ctx %>/usuarios.jsp" class="<%= "usuarios".equals(moduloActivo) ? "activo" : "" %>">
+            <img src="<%= ctx %>/imagenes/icon-usuarios.svg" alt=""> Gestión de usuarios
+        </a>
+    </li>
+    <% } %>
+    <li>
+        <a href="<%= ctx %>/auditoria.jsp" class="<%= "auditoria".equals(moduloActivo) ? "activo" : "" %>">
+            <img src="<%= ctx %>/imagenes/icon-auditoria.svg" alt=""> Auditoría
+        </a>
+    </li>
+    <li>
+        <a href="<%= ctx %>/perfil.jsp" class="<%= "perfil".equals(moduloActivo) ? "activo" : "" %>">
+            <img src="<%= ctx %>/imagenes/icon-perfil.svg" alt=""> Mi perfil
+        </a>
+    </li>
+</ul>
+
+<div class="info">
+    <b><%= esAdmin ? "Perfil: Administrador" : "Perfil: Personal" %></b><br>
+    <%= esAdmin
+        ? "Acceso completo a asistencias, activos, usuarios y auditorÃ­a."
+        : "Registra asistencias, consulta activos y revisa tu actividad." %>
+</div>
