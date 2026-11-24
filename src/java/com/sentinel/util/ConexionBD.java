@@ -1,16 +1,13 @@
 package com.sentinel.util;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/**
- * Conexion JDBC con la base de datos "seguridad" de XAMPP.
- * Si tu MySQL tiene contraseña, cambia USER y PASS.
- */
 public final class ConexionBD {
 
-        private static final String URL = System.getenv("DB_URL") != null
+    private static final String URL = System.getenv("DB_URL") != null
             ? System.getenv("DB_URL")
             : "jdbc:mysql://localhost:3306/seguridad"
               + "?useSSL=false"
@@ -19,33 +16,32 @@ public final class ConexionBD {
               + "&useUnicode=true"
               + "&characterEncoding=UTF-8";
 
-    private static final String USER = System.getenv("DB_USER") != null
-            ? System.getenv("DB_USER")
-            : "root";
+    private static final String USER = System.getenv("DB_USER") != null ? System.getenv("DB_USER") : "root";
+    private static final String PASS = System.getenv("DB_PASS") != null ? System.getenv("DB_PASS") : "";
 
-    private static final String PASS = System.getenv("DB_PASS") != null
-            ? System.getenv("DB_PASS")
-            : "";
+    private static final HikariDataSource ds;
+
+    static {
+        HikariConfig config = new HikariConfig();
+        config.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        config.setJdbcUrl(URL);
+        config.setUsername(USER);
+        config.setPassword(PASS);
+        config.setMaximumPoolSize(5);
+        config.setMinimumIdle(2);
+        config.setIdleTimeout(30000);
+        config.setMaxLifetime(1800000);
+        config.setConnectionTimeout(15000);
+        config.addDataSourceProperty("cachePrepStmts", "true");
+        config.addDataSourceProperty("prepStmtCacheSize", "250");
+        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+        ds = new HikariDataSource(config);
+    }
 
     private ConexionBD() {
     }
 
     public static Connection getConexion() throws SQLException {
-        cargarDriver();
-        return DriverManager.getConnection(URL, USER, PASS);
-    }
-
-    private static void cargarDriver() throws SQLException {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            try {
-                /* Compatibilidad con versiones antiguas del conector */
-                Class.forName("com.mysql.jdbc.Driver");
-            } catch (ClassNotFoundException e2) {
-                throw new SQLException("No se encontro el driver de MySQL. "
-                        + "Agrega mysql-connector-j a WEB-INF/lib.", e2);
-            }
-        }
+        return ds.getConnection();
     }
 }
